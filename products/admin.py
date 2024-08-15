@@ -12,6 +12,7 @@ class ProductImageSteckedInline(StackedInline):
 @register(Product)
 class ProductModelAdmin(ModelAdmin):
     inlines = ProductImageSteckedInline,
+    list_display = 'name', 'category', 'price', 'quantity'
 
 
 @register(Category)

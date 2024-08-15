@@ -9,3 +9,11 @@ class ProductImageSteckedInline(StackedInline):
     fields = ('product', 'image')
 
 
+@register(Product)
+class ProductModelAdmin(ModelAdmin):
+    inlines = ProductImageSteckedInline,
+
+
+@register(Category)
+class CategoryModelAdmin(ModelAdmin):
+    pass

@@ -13,7 +13,6 @@ class Product(Model):
     name = CharField(max_length=1000)
     price = FloatField()
     discount = PositiveIntegerField()
-    color = CharField(max_length=30, null=True, blank=True)
     short_description = TextField()
     description = TextField()
     quantity = PositiveIntegerField(default=1)
@@ -21,8 +20,25 @@ class Product(Model):
     
     def __str__(self):
         return self.name
+    
+    @property
+    def first_image(self):
+        return self.images.all().first()
+    
+    @property
+    def get_price(self):
+        if self.discount:
+            price = self.price - (self.price*self.discount)/100
+            return price
+        
+        return price
 
 
 class ProductImage(Model):
     image = ImageField(upload_to='products')
     Product = ForeignKey('products.Product', CASCADE, related_name='images')
+
+    
+class ProductColor(Model):
+    name = CharField(max_length=20)
+    Product = ForeignKey('products.Product', CASCADE, related_name='colors')
